@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เเคมเปญช่วยเหลือเด็กที่ขาดทุนทรัพย์</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@100&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-06V113G2S4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-06V113G2S4');
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M2H3VS2');</script>
+<!-- End Google Tag Manager -->
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-auth.js"></script>
+
+    
+</head>
+    <style>
+        body {
+            color: white;
+            background-color: #2a9d8f;
+            font-family: 'Sarabun', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 45px;
+        }
+        .topnav {
+            overflow: hidden;
+            background-color: black;
+            line-height: 20px;
+        }
+
+        .topnav a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .topnav a.home {
+            background-color: #2a9d8f;
+            color: white;
+        }
+        .topnav a.signin {
+            float: right;
+            color: whitesmoke;
+            background-color: #f4a261;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .topnav a#tagname {
+            float: right;
+            color: red;
+            font-weight: bold;
+            pointer-events: none;
+            cursor: default;
+        }
+
+        .container1 {
+            background-color: #264653;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .container1 .item1 {
+            display: flex;
+            justify-content: center;
+        }
+        .container1 .item2 {
+            display: inline-block;
+            text-align: center;
+        }
+        .container1 .word1 {
+            color: #f4a261;
+            font-size: 30px;
+        }
+        .container2 {
+            display: flex;
+            justify-content: center;
+        }
+        .container3 {
+            display: flex;
+            justify-content: center;
+        }
+        .container4 {
+            display: flex;
+            justify-content: center;
+        }
+        .container4 .word2 {
+            color: #e9c46a;
+        }
+        .boxset {
+            background-color: #264653;
+            display: flex;
+            justify-content: space-evenly; 
+            flex-wrap: wrap;
+            padding: 50px;
+            padding-top: 20px;
+            line-height: 25px;
+        }
+        .box1 {
+            background-image: url(pic1.jpg);
+            background-position: center;
+            background-size: cover;
+            background-color: #e9c46a;
+            width: 400px;
+            height: 290px;
+            margin-top: 30px;
+        }
+        .textbox1 {
+            margin-top: 180px;
+            color: white;
+            text-shadow: 2px 2px black;
+        }
+        .box2 {
+            background-image: url(pic2.jpg);
+            background-position: center;
+            background-size: cover;
+            background-color: #e9c46a;
+            width: 400px;
+            height: 290px;
+            margin-top: 30px;
+        }
+        .textbox2 {
+            margin-top: 200px;
+            color: white;
+            text-shadow: 2px 2px black;
+        }
+        .box3 {
+            background-image: url(pic3.jpg);
+            background-position: center;
+            background-size: cover;
+            background-color: #e9c46a;
+            width: 400px;
+            height: 290px;
+            margin-top: 30px;
+        }
+        .textbox3 {
+            margin-top: 180px;
+            color: white;
+            text-shadow: 2px 2px black;
+        }
+        .butt {
+            background-color: #2a9d8f;
+            border: 10px 10px black;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            display: inline-block;
+            font-size: 15px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 15px;
+            font-family: 'Sarabun', sans-serif;
+        }
+        .container5 {
+            display: flex;
+            flex-direction: column;
+            margin-top: -20px;
+            height: 550px;
+        }
+        .container5 .content1 {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .boxset2 {
+            background-color: #2a9d8f;
+            display: flex;
+            justify-content: space-evenly; 
+            flex-wrap: wrap;
+            padding: 50px;
+            padding-top: 20px;
+            margin-top: -500px;
+            margin-bottom: 150px;
+        }
+        .box4 {
+            background-image: url(pic4.jpg);
+            background-size: cover;
+            background-position: center;
+            background-color: #e9c46a;
+            width: 400px;
+            height: 290px;
+            margin-top: 30px;
+        }
+        .box5 {
+            background-image: url(pic5.jfif);
+            background-size: cover;
+            background-position: center;
+            background-color: #e9c46a;
+            width: 400px;
+            height: 290px;
+            margin-top: 30px;
+        }
+        .box6 {
+            background-image: url(pic6.jpg);
+            background-size: cover;
+            background-position: center;
+            background-color: #e9c46a;
+            width: 400px;
+            height: 290px;
+            margin-top: 30px;
+        }
+        .buttt {
+            background-color: #e9c46a;
+            border: 10px 10px black;
+            color: black;
+            padding: 15px 32px;
+            text-align: center;
+            display: inline-block;
+            font-size: 15px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 15px;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 20px;
+            font-style: bold;
+            padding-bottom: 10px;
+        }
+        .container6 {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: #264653;
+        }
+        .container6 .item1 {
+            display: flex;
+            justify-content: center;
+        }
+        .container6 .item2 {
+            /* display: flex;
+            justify-content: center; */
+            text-align: center;
+            margin-left: 10px;
+        }
+        .container6 .word3 {
+            color: #f4a261;
+            font-size: 30px;
+        }
+        .container6 .content4 {
+            display: flex;
+            justify-content: center;
+            justify-content: space-evenly; 
+        }
+        .container6 .item4 {
+            display: flex;
+            justify-content: center;
+            margin-left: 10px;
+        }
+        .container6 .item5 {
+            text-align: center;
+            margin-left: 10px;
+            color: #f4a261;
+        }
+        .container7 {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: black;
+        }
+        .container7 .item1 {
+            display: flex;
+            justify-content: center;
+        }
+        .container7 .item2 {
+            display: flex;
+            justify-content: left;
+            font-size: 12px;
+            margin-left: 10px;
+            line-height: 20px;
+        }
+        .ref {
+            color: white;
+        }
+        a:hover {
+            color: red;
+        }
+        .container8 {
+            display: flex;
+            justify-content: center;
+            background-color: #264653;
+            height: 50px;
+            padding-bottom: 10px;
+        }
+        .container8 .item1 {
+            display: flex;
+            justify-content: center;
+        }
+        .container9 {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .container9 .item3 {
+            /* display: flex;
+            justify-content: center; */
+            text-align: center;
+            margin-top: -200px;
+        }
+        .container9 .item4 {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        .container10 {
+            display: flex;
+            justify-content: center;
+            
+        }
+        .container10 .item1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container10 .item2 {
+            display: flex;
+            justify-content: center;
+        }
+
+    </style>
+<body>
+    <div class="topnav" id="topnav">
+        <a class="home" href="home.html">Home</a>
+        <a href="form.html">ร่วมลงชื่อสนับสนุนเเคมเปญ</a>
+        <a href="#container5">ร่วมบริจาค</a>
+        <a href="" class="signin" id="signin"></a>
+        <a href="" id="tagname"></a>
+    </div>
+    <div class="container1">
+        <div class="item1">
+            <h1>เเคมเปญ : ช่วยเหลือเด็กขาดเเคลนทุนทรัพย์</h1>
+        </div>  
+        <div class="item2">
+            <h4>อย่างที่ทุกคนทราบกันดีว่าในปัจจุบันนั้นเรามีความเหลื่อมล้ำทางด้านการศึกษา ซึ่งจากข้อมูลการตรวจสอบพบว่ามีเด็ก <br>
+            <b class="word1">1 ใน 5</b> ของเด็กและเยาวชนไทยกำลังเผชิญกับ <b class="word1">ความเหลื่อมล้ำทางการศึกษา</b> แหล่งข้อมูลมาจาก กสศ.</h4>
+        </div>      
+    </div>
+    <div class="container2">
+        <div>
+            <h1>กราฟของของเด็กที่ขาดเเคลนทุนทรัพย์ทั่วประเทศที่ กสศ. มุ่งช่วงเหลือ</h1>
+        </div>
+    </div>
+    <div class="container3">
+        <div class="pic">
+          <img src="กราฟ.png" alt="" width="100%">
+        </div> 
+    </div>
+    <div class="container4">
+            <div class="content">
+            <p><b class="text1">จากกราฟเราจะเห็นได้ว่ามีเด็ก<b class="word2">นักเรียนที่ขาดทุนทรัพย์ในการศึกษามากถึง 1,800,000 คน</b>เเละยังมี<b class="word2">เด็กก่อนวัยเรียนที่ยังขาดทุนทรัพย์อีก 610,000 คน</b>ซึ่งโดยราวมเเล้ว<b class="word2">มีเด็กที่ขาดทุนทรัพย์ในการเรียนมากถึง 4,300,000 คน</b><b></p>
+            </div>
+    </div>
+    <div class="container8">
+        <div class="item1">
+            <h1>บทความเกี่ยวกับเด็กที่ขาดเเคลนทุนทรัพย์</h1>
+        </div>
+    </div>
+    <div class="boxset">
+        <div class="box1">
+            <center>       
+                <h4 class="textbox1">5 แฟกต์ว่าด้วยความเหลื่อมล้ำทางการศึกษาที่สกัดขาไม่ให้เด็กต้นทุนต่ำได้ไปต่อ</h4> 
+                <a href="https://adaymagazine.com/educational-inequality/"><input type="button" value="อ่านข้อมูลเพิ่มเติม" class="butt" id="article1"></a>   
+            </center>
+        </div>
+        <div class="box2">
+            <center>
+                <h4 class="textbox2">กสศ.เผยสถานการณ์ความเหลื่อมล้ำทางการศึกษาไทย</h4>
+                <a href="https://www.disruptignite.com/blog/inequality-in-thailand-2562"><input type="button" value="อ่านข้อมูลเพิ่มเติม" class="butt" id="article2"></a>    
+            </center>
+        </div>
+        <div class="box3">
+            <center>
+                <h4 class="textbox3">ลดความเหลื่อมล้ำยังไงให้ยั่งยืน? <br> คุยกับกองทุนเพื่อความเสมอภาคทางการศึกษา</h4>
+                <a href="https://adaymagazine.com/eef-education/"><input type="button" value="อ่านข้อมูลเพิ่มเติม" class="butt" id="article3"></a>    
+            </center>
+        </div>
+    </div>
+    <div class="container5" id="container5">
+        <div class="content1">
+            <h1>ร่วมบริจาค</h1>   
+        </div>
+    </div>
+    <div class="boxset2">
+        <div class="box4">
+        </div>
+        <div class="box5">
+        </div>
+        <div class="box6">       
+        </div>
+    </div>
+    <div class="container9">
+        <div class="item3">
+            <h2 class="content3">
+                <p>ขอเชิญชวนทุกคนที่เข้ามาร่วมเป็นส่วนหนึ่งในการช่วยเหลือเด็กที่ขาดทุนทรัพย์ในการศึกษาเพื่อให้เกิดความเสมอภาคในการศึกษา <br>
+                ซึ่งเราเชื่อว่าสิ่งที่คุณได้เเบ่งปันหรือบริจาคจะทำให้เกิดโอกาสทางการศึกษาเเก่เด็กที่ขาดทุนทรัพย์เเละทำให้ชีวิตการเป็นอยู่ของพวกเขาดีมากยิ่งขึ้น</p> 
+            </h2>
+        </div>
+        <div class="item4">
+            <a href="https://www.eef.or.th/donate/"><input type="button" value="บริจาคเลย" class="buttt" id="donate"></a> 
+        </div>
+    </div>
+    <div class="container6">
+        <div class="item1">
+                <h1>ข่าวสารเพิ่มเติม</h1>
+        </div>
+        <div class="item2">
+                <h4>ปัจจุบันเราเจอสถานการณ์<b class="word3">การเเพร่ระบาดของ COVID-19</b>ทำให้เด็กนักเรียนมากมายต้อง<b class="word3">เรียนออนไลน์</b>เพราะต้องการเว้นระยะห่าง เพื่อป้องกันการเเพร่ระบาด <br>เเต่ว่า
+                ในสถานการณ์นี้นั้นทำให้<b class="word3">เด็กนักเรียนที่ขาดทุนทรัพย์</b>ไม่สามารถที่จะเข้าเรียนแบบออนไลน์ได้ เพราะว่า ไม่มีเครื่องมือในการเข้าเรียนต่างๆ ไม่ว่าจะเป็น โทรศัพท์ คอมพิวเตอร์ หรือ อินเตอร์เน็ต 
+                </h4>
+        </div>
+        <div class="item3">
+            <div class="content4">
+                <img src="pic7.jpg" alt="" width="25%" height="25%">
+                <img src="pic8.jpg" alt="" width="25%" height="25%"> 
+            </div>
+        </div>
+        <div class="item4">
+            <h4>
+                มีนักเรียนสามารถเรียนรู้ผ่านระบบออนไลน์ได้เพียง 45% <br>
+            - ไม่มีเครื่องคอมพิวเตอร์ จำนวน 66% <br>
+            - ไม่มีอินเตอร์เน็ตใช้ที่บ้าน จำนวน 57% <br>
+            - ไม่มีสมาร์ทโฟน จำนวน 36% <br>
+            (จากผลสำรวจของคณะศึกษาศาสตร์และพัฒนศาสตร์ มหาวิทยาลัยเกษตรศาสตร์) <br>
+            *** ซึ่งจากข้อมูลเราจะเห็นว่ามีนักเรียนที่สามารถเรียนออนไลน์ได้เพียง 45% ซึ่งปัญหาหลัก คือ ความไม่พร้อมของผู้ปกครองเเละเด็กนักเรียนในเรื่องของเครื่องมืออุปกรณ์ในการเรียน ***
+            </h4>
+        </div>
+        <div class="item5">
+            <h4>"นี่ถือว่าเป็นความเหลี่ยมล้ำที่ชัดเจน ในเรื่องของการขาดเเคลนอุปกรณ์ในการเรียนซึ่งถือว่าเป็นอุปสรรคหลักในการเรียนการสอนในแบบออนไลน์<br>
+                ดังนั้นเราควรที่จะช่วยเหลือเด็กที่เป็นอนาคตของชาติโดยการเเจกเครื่องมือหรือบริจาคให้เเก่กลุ่มเด็กที่ขาดเเคลนทุนทรัพย์ในเรื่องของเครื่องมือเเละอุปกรณ์"</h4>
+        </div>
+    </div>
+    <div class="container10">
+        <div class="item2">
+            <h2 style="margin-right: 20px;">ติดตามพวกเราต่อได้ที่</h2>
+            <h4><img src="Qrcode.jpg" alt="" srcset="" width="200px" height="200px" class="qr" float="right"><br>
+                &nbsp;หรือ ID : @118dbtud
+            </h4> 
+        </div>      
+    </div>
+    <div class="container7">
+        <div class="item1">
+            <h2>เเหล่งอ้างอิง</h2>
+        </div>
+        <div class="item2">
+            <h4>เว็บไซต์อ้างอิง <br><br>
+                <a href="https://www.eef.or.th/" class="ref">https://www.eef.or.th/</a>  <br>
+                <a href="https://adaymagazine.com/educational-inequality/" class="ref">https://adaymagazine.com/educational-inequality/</a>  <br>
+                <a href="https://www.disruptignite.com/blog/inequality-in-thailand-2562" class="ref">https://www.disruptignite.com/blog/inequality-in-thailand-2562</a>  <br>
+                <a href="https://adaymagazine.com/eef-education/" class="ref">https://adaymagazine.com/eef-education/</a>  <br>
+                <a href="https://www.bangkokbiznews.com/news/detail/880578" class="ref">https://www.bangkokbiznews.com/news/detail/880578</a>  <br>
+            </h4> 
+        </div>
+    </div>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyC7xNmHw8l0CUtrnw9IwylP-9Pi-wSLqNk",
+    authDomain: "equal-education-7627a.firebaseapp.com",
+    projectId: "equal-education-7627a",
+    storageBucket: "equal-education-7627a.appspot.com",
+    messagingSenderId: "640840474937",
+    appId: "1:640840474937:web:e94c81fff8b0d01b2788e8",
+    measurementId: "G-205ZYB9MKE"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  const db = firebase.firestore();
+</script>
+
+    <script src="localForm.js"></script>
+    <script src="realtimeScript.js"></script>
+
+</body>
+</html>

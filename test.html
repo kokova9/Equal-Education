@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+function check() {
+    etc = document.getElementById('text');
+    if (etc.disabled == true) {
+    etc.disabled = false;
+    }else{
+    etc.disabled = true;
+    }
+}
+    </script>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-firestore.js"></script>
+
+</head>
+<body>
+    <form id="formtest">
+        <select name="pump" id="pump">
+            <option value="stat1">สถานี 1</option>
+        </select>
+        <select name="time" id="time">
+            <option value="14">14.00</option>
+        </select>
+        <button type="submit">rent</button>
+    </form>
+    <p id="test"></p> <br><br>
+    <input type="checkbox" name="" id="" onclick="check()"> อื่นๆ ระบุ : &nbsp;<input type="text" name="" id="text" disabled>
+    <br><br><br><br>
+
+
+    <form id="auth">
+        <input type="text" name="user" id="user"><br>
+        <input type="password" name="pass" id="pass"><br>
+        <button type="submit">Login</button>
+    </form>
+
+    
+ <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyC7xNmHw8l0CUtrnw9IwylP-9Pi-wSLqNk",
+    authDomain: "equal-education-7627a.firebaseapp.com",
+    projectId: "equal-education-7627a",
+    storageBucket: "equal-education-7627a.appspot.com",
+    messagingSenderId: "640840474937",
+    appId: "1:640840474937:web:e94c81fff8b0d01b2788e8",
+    measurementId: "G-205ZYB9MKE"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  const db = firebase.firestore();
+</script>
+
+<script src="java.js"></script>
+    
+</body>
+</html>
